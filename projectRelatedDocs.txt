@@ -1,0 +1,25 @@
+
+Accessing Headers in CAMEL EXCHANGE
+--------------------------------------------------------------
+
+
+			String reqString = exchange.getIn().getBody(String.class);
+			BasicDBObject inputRequest = BasicDBObject.parse(reqString);
+			
+			BasicDBObject envelopeObj = (BasicDBObject) inputRequest.get(Constants.REQ_ENVELOPE);
+			BasicDBObject headerObj = (BasicDBObject) envelopeObj.get(Constants.REQ_HEADER);
+
+			String language=headerObj.getString(Constants.F_LOCALE);
+			
+--------------------------------------------------------------
+
+env_variable setting up for project
+
+APPSERVER_CONF_PATH D:\project\SmartFron\buildSnoc\snocconf
+
+LOG4J_CONFIGURATION_FILE %APPSERVER_CONF_PATH%\log4j.xml
+
+JAVA_HOME C:\Program Files\Java\jdk1.8.0_281
+---------------------------------------------------------------
+Path
+%JAVA_HOME%\bin

@@ -1,0 +1,39 @@
+list all directories  #  ls -d */
+
+
+grep after/before match 100 lines 
+
+grep -A 100 -B 10 '10876' -i snoc_serivces.logi snoc_serivces.log
+grep -A 100 -B 10 '10876' -i snoc/apps/logs/snoc_serivces.log
+
+
+
+----------------------------------------
+To find who modified a particular lines
+
+git blame -e -L <startLine>,<endLine> <fileName/path>
+
+eg.,
+git blame -e -L 130,130 SubDsyncProcessor.java
+
+
+--------------------------------------------
+Restart tomee
+
+ps -ef | grep tomee
+get the process id of tomee
+kill -9 psId
+startup.sh
+
+windows killing process which is running in port 8080
+
+netstat  -ano  |  findstr  < Port Number >
+Example: netstat  -ano  |  findstr  8080
+
+This step will give you "process id" of service running on port "8080"
+
+Step 2:
+
+taskkill  /F  /PID  < Process Id >
+Example: taskkill  /F  /PID  25392
+---------------------------------------------

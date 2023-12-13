@@ -1,0 +1,96 @@
+SEARCHING: 
+search name ="praga"(or) " naveen"
+db.temp_coll.find({"name":{"$in":["demouser1","advace update"]}})
+
+search with object_id
+db.tempC_coll.find({_id:"12dfghja1s2d3f4g5h67"})
+
+
+
+search where name ="praga" | "naveen"
+db.getCollection('outlet_parent').find({"status":{"$in":[169,173]}})
+
+
+searching using regex on fields and if * doesn't work use the below one 
+db.getCollection('user ').find({"uname":{"$regex":'^dem',"$options":"si"}})
+
+	db.getCollection('user').find({"uname":{"$regex":'EI'}})
+
+	db.getCollection('temp_coll').find({"name":{"$regex":'/*.mou'}})
+
+	db.getCollection('temp_coll').find({"name":{"$regex":'demo/*.'}})
+
+----------------------------------------------------------------------------
+
+aggregation:
+1. : the collecting of units or parts into a mass or whole. 2. : a group, body, or mass composed of many distinct parts
+
+The aggregation pipeline can consist of the following stages:
+$addFields
+$set
+$project
+$unset
+$replaceRoot
+$replaceWith
+
+Adding field
+db.temp_coll.aggregate([{"$addFields":{"crtd_dt":new Date()}}])
+	
+----------------------------------------------------------------------
+UPDATE:
+
+update the first element in array if query satisfied
+
+db.temp_coll.update({"_id":11,"grades":2},{"$set":{"grades.$":200}})
+
+update all the elements in a array using arrayFilters
+
+db.temp_coll.update({"_id":13,"grades":1},{"$set":{"grades.$[i]":100}},{"arrayFilters":[{i:1}]})
+
+update all the elements in a nested array using arrayFilters
+eg., data
+"contacts" : [ 
+        {
+            "type" : "email_id",
+            "no" : "no@no.com"
+        }, 
+        {
+            "type" : "mobile_no",
+            "no" : "00000000"
+        }
+    ]
+db.temp_coll.updateOne({"_id":11111111,"contacts.type":"mobile_no"},
+{"$set":{"contacts.$[i].no":"00000000"}},
+{"arrayFilters":[{"i.type":"mobile_no"}]}
+)
+
+
+-----------------------------------------------------------------------
+SET:
+
+db.eload_upload_request.updateOne({_id:1},{$set:{"requested_date":new ISODate()}})
+
+--------------------------------------------------------------------------
+DISTINCT:
+collection.distinct("unique_id u want", {query})
+
+db.getCollection('user_coll_daywise').distinct("user_id",{"updtd_dt":{"$gte":ISODate("2023-08-18T06:16:31.241Z")}})
+
+--------------------------------------------------------------------------
+aggregate addFields (adding all numbers in array which is grades array)
+sum is for adding all elements in array[1,2,4]
+add is for adding level one elements in document.
+The newly added field vanish after the query get executed.
+
+db.temp_coll.aggregate([{
+    "$addFields":{
+    "totalGradePoints":{"$sum":"$grades"}
+        }
+    }])
+
+ db.temp_coll.aggregate([{
+    "$addFields":{
+    "agePlustotalGradePoints":{"$add":["$age","$price"]}
+        }
+    }])
+--------------------------------------------------------------------------
